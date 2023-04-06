@@ -1,0 +1,133 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+li,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f0d1ee;
+  color: var(--primary-text-color);
+  font-family: Roboto, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  background-color: purple;
+}
+.load-more {
+  font: inherit;
+  color: purple;
+  cursor: pointer;
+  background-color: #f0d1ee;
+  border: none;
+  border-radius: 5px;
+  margin: 25px auto;
+  padding: 8px 20px;
+  display: block;
+  /* box-shadow: 0 1px 2px #3c40434d, 0 2px 6px 2px #3c404326; */
+}
+
+.gallery-item__img {
+  height: 30vh;
+  object-fit: cover;
+  display: block;
+}
+
+.info {
+  padding: 10px;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.info-item {
+  color: #000;
+  flex-direction: column;
+  align-items: center;
+  font-family: Playfair;
+  font-size: 10px;
+  line-height: 1.6;
+  display: flex;
+}
+
+.btn-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.gallery-item__size {
+  max-width: 250px;
+  max-height: 250px;
+  overflow: hidden;
+}
+
+.photo-card {
+  margin-top: 20px;
+  margin-left: 20px;
+  min-width: 250px;
+}
+
+.button {
+  border-radius: 4px;
+  padding: 10px 32px;
+  color: var(--white-color);
+  background-color: var(--accent-color);
+  font-family: Roboto;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.88;
+  letter-spacing: 0.06em;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  min-width: 216px;
+  transition-property: background-color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button:hover,
+.button:focus {
+  color: var(--white-color);
+  background-color: var(--background-button-color-sec);
+}
+
+.container {
+  width: 1200px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: 0 auto;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+}

@@ -13,12 +13,19 @@ const toUpBtn = document.querySelector('.btn-to-top');
 let searchQuery = '';
 let page = 1;
 let totalHits = 0;
+let lightbox = new SimpleLightbox('.photo-card a', {
+  captionDelay: 250,
+});
+
+window.addEventListener('scroll', onScroll);
+toUpBtn.addEventListener('click', onToUpBtn);
 
 form.addEventListener('submit', async event => {
   event.preventDefault();
   searchQuery = event.target.elements.searchQuery.value.trim();
 
   if (!searchQuery) {
+    alertEmptyQuery();
     return;
   }
 
@@ -35,6 +42,8 @@ form.addEventListener('submit', async event => {
     loadMoreBtn.style.display = 'block';
   }
 });
+
+lightBox.open();
 
 loadMoreBtn.addEventListener('click', async () => {
   page += 1;
@@ -59,6 +68,8 @@ async function fetchImages() {
       safesearch: true,
       per_page: 40,
       page: page,
+      min_width: 200,
+      min_height: 200,
     },
   });
 
@@ -81,7 +92,10 @@ function renderImages(images) {
        <div class="photo-card">
           <a class="gallery__link" href="${image.largeImageURL}">
           <div class="gallery-item" id="${image.id}">
+            <div class="gallery-item__size">
             <img class="gallery-item__img" src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
+            </div>
+
           <div class="info">
               <p class="info-item"><b>Likes</b>${image.likes}</p>
               <p class="info-item"><b>Views</b>${image.views}</p>
@@ -95,4 +109,39 @@ function renderImages(images) {
     .join('');
 
   gallery.insertAdjacentHTML('beforeend', html);
+}
+
+function onScroll() {
+  const scrolled = window.pageYOffset;
+  const coords = document.documentElement.clientHeight;
+
+  if (scrolled > coords) {
+    toUpBtn.classList.add('btn-to-top--visible');
+  }
+  if (scrolled < coords) {
+    toUpBtn.classList.remove('btn-to-top--visible');
+  }
+}
+
+function onToUpBtn() {
+  if (window.pageYOffset > 0) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+// const galleryContainer = document.querySelector('.photo-card');
+
+const lightBox = new SimpleLightbox('.photo-card a', {
+  overlayOpacity: 0.9,
+  captionsData: 'alt',
+  captionDelay: 250,
+  animationSpeed: 250,
+});
+
+function alertTotalImagesFound(data) {
+  Notiflix.Notify.success(`'Hooray! We found ${data.totalHits} images.'`);
+}
+
+function alertEmptyQuery() {
+  Notiflix.Notify.failure('Please write something and try again.');
 }
