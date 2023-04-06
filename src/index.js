@@ -27,7 +27,7 @@ form.addEventListener('submit', async event => {
   if (!searchQuery) {
     alertEmptyQuery();
     return;
-  }
+  } 
 
   page = 1;
   totalHits = 0;
@@ -48,7 +48,8 @@ lightBox.open();
 loadMoreBtn.addEventListener('click', async () => {
   page += 1;
   const images = await fetchImages();
-  renderImages(images);
+    renderImages(images);
+    
 
   if (totalHits <= page * 40) {
     loadMoreBtn.style.display = 'none';
