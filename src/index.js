@@ -42,6 +42,7 @@ form.addEventListener('submit', async event => {
 
   const images = await fetchImages();
   renderImages(images);
+  let page = 1;
   let totalHits = 0;
 
   if (totalHits <= page * 40) {
