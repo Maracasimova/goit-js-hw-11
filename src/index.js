@@ -42,6 +42,7 @@ form.addEventListener('submit', async event => {
 
   const images = await fetchImages();
   renderImages(images);
+  let totalHits = 0;
 
   if (totalHits <= page * 40) {
     loadMoreBtn.style.display = 'none';
