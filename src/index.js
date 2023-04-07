@@ -10,12 +10,19 @@ const form = document.querySelector('#search-form');
 const loadMoreBtn = document.querySelector('.load-more');
 const toUpBtn = document.querySelector('.btn-to-top');
 
+const galleryContainer = document.querySelector('.photo-card');
+
+const SimpleLightbox = new SimpleLightbox('.photo-card a', {
+  overlayOpacity: 0.9,
+  captionsData: 'alt',
+  captionDelay: 250,
+  animationSpeed: 250,
+});
+
 let searchQuery = '';
 let page = 1;
 let totalHits = 0;
-let lightbox = new SimpleLightbox('.photo-card a', {
-  captionDelay: 250,
-});
+
 
 window.addEventListener('scroll', onScroll);
 toUpBtn.addEventListener('click', onToUpBtn);
@@ -43,7 +50,7 @@ form.addEventListener('submit', async event => {
   }
 });
 
-lightBox.open();
+
 
 loadMoreBtn.addEventListener('click', async () => {
   page += 1;
@@ -91,6 +98,7 @@ function renderImages(images) {
     .map(
       image => `
        <div class="photo-card">
+       
           <a class="gallery__link" href="${image.largeImageURL}">
           <div class="gallery-item" id="${image.id}">
             <div class="gallery-item__size">
@@ -112,6 +120,8 @@ function renderImages(images) {
   gallery.insertAdjacentHTML('beforeend', html);
 }
 
+SimpleLightbox.refresh();
+
 function onScroll() {
   const scrolled = window.pageYOffset;
   const coords = document.documentElement.clientHeight;
@@ -130,14 +140,7 @@ function onToUpBtn() {
   }
 }
 
-// const galleryContainer = document.querySelector('.photo-card');
 
-const lightBox = new SimpleLightbox('.photo-card a', {
-  overlayOpacity: 0.9,
-  captionsData: 'alt',
-  captionDelay: 250,
-  animationSpeed: 250,
-});
 
 function alertTotalImagesFound(data) {
   Notiflix.Notify.success(`'Hooray! We found ${data.totalHits} images.'`);
