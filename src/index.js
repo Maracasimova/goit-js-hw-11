@@ -120,7 +120,7 @@ function renderImages(images) {
   gallery.insertAdjacentHTML('beforeend', html);
 }
 
-SimpleLightbox.refresh();
+SimpleLightbox.open;
 
 function onScroll() {
   const scrolled = window.pageYOffset;
