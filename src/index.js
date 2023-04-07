@@ -12,7 +12,7 @@ const toUpBtn = document.querySelector('.btn-to-top');
 
 const galleryContainer = document.querySelector('.photo-card');
 
-const SimpleLightbox = new SimpleLightbox('.photo-card a', {
+const lightbox = new SimpleLightbox('.photo-card a', {
   overlayOpacity: 0.9,
   captionsData: 'alt',
   captionDelay: 250,
@@ -22,7 +22,6 @@ const SimpleLightbox = new SimpleLightbox('.photo-card a', {
 let searchQuery = '';
 let page = 1;
 let totalHits = 0;
-
 
 window.addEventListener('scroll', onScroll);
 toUpBtn.addEventListener('click', onToUpBtn);
@@ -34,7 +33,7 @@ form.addEventListener('submit', async event => {
   if (!searchQuery) {
     alertEmptyQuery();
     return;
-  } 
+  }
 
   page = 1;
   totalHits = 0;
@@ -42,8 +41,6 @@ form.addEventListener('submit', async event => {
 
   const images = await fetchImages();
   renderImages(images);
-  let page = 1;
-  let totalHits = 0;
 
   if (totalHits <= page * 40) {
     loadMoreBtn.style.display = 'none';
@@ -52,13 +49,10 @@ form.addEventListener('submit', async event => {
   }
 });
 
-
-
 loadMoreBtn.addEventListener('click', async () => {
   page += 1;
   const images = await fetchImages();
-    renderImages(images);
-    
+  renderImages(images);
 
   if (totalHits <= page * 40) {
     loadMoreBtn.style.display = 'none';
@@ -84,7 +78,6 @@ async function fetchImages() {
   });
 
   totalHits = data.totalHits;
-
   return data.hits;
 }
 
@@ -100,7 +93,6 @@ function renderImages(images) {
     .map(
       image => `
        <div class="photo-card">
-       
           <a class="gallery__link" href="${image.largeImageURL}">
           <div class="gallery-item" id="${image.id}">
             <div class="gallery-item__size">
@@ -122,7 +114,7 @@ function renderImages(images) {
   gallery.insertAdjacentHTML('beforeend', html);
 }
 
-SimpleLightbox.open;
+lightbox.open;
 
 function onScroll() {
   const scrolled = window.pageYOffset;
@@ -141,8 +133,6 @@ function onToUpBtn() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
-
-
 
 function alertTotalImagesFound(data) {
   Notiflix.Notify.success(`'Hooray! We found ${data.totalHits} images.'`);
